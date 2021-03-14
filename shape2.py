@@ -7,10 +7,10 @@ class Shaper:
         self.vdimen = vdimen
         self.imgarr = np.zeros((dimen[1],dimen[0]))
         self.a = np.stack([np.arange(dimen[0])]*dimen[1],axis = 0)
-        self.b = np.stack([np.arange(dimen[1])]*dimen[0],axis = 1)
+        self.b = np.stack([np.arange(dimen[1])-dimen[1]+1]*dimen[0],axis = 1)
     def drawCircleSmooth2(self,x,y,r):
         a=(self.a-x).astype(np.float)
-        b=-(self.b-y).astype(np.float)
+        b=(self.b-y).astype(np.float)
         r2=r**2
         
         #kdl,kdr,kul,kur
@@ -24,7 +24,7 @@ class Shaper:
         return self.areaShader(a,b,k2,buy,bdy,alx,arx)
     def drawTriRegionLine(self,x,y,t1):
         a=(self.a-x).astype(np.float)
-        b=-(self.b-y).astype(np.float)
+        b=(self.b-y).astype(np.float)
         r2 = 0
 
         #kdl,kdr,kul,kur
@@ -69,7 +69,7 @@ class Shaper:
         #self.imgarr = np.clip(self.imgarr+(img*br).astype(np.int8),0,255)
     def drawPtRegionLine(self,x,y,x1,y1,x2,y2):
         a=(self.a-x).astype(np.float)
-        b=-(self.b-y).astype(np.float)
+        b=(self.b-y).astype(np.float)
         r2 = 0
         #kdl,kdr,kul,kur
         k1 = [\
@@ -92,9 +92,9 @@ class Shaper:
             alx=np.zeros_like(a)
             arx=np.zeros_like(a)
         return self.areaShader(a,b,k2,buy,bdy,alx,arx)
-    def drawRect(self,x,y,x1,y1,w,h):
-        a=self.a-x
-        b=-(self.b-y)
+    def drawRect(self,x1,y1,w,h):
+        a=self.a
+        b=self.b
         br = 125
         img = ((a>=x1)*(a<x1+w)*(b>=y1)*(b<y1+h))*1
         self.imgarr = self.stitchImg(self.imgarr,(img*br).astype(np.int8))
