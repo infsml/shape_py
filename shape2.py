@@ -2,9 +2,8 @@ import numpy as np
 import pygame as pg
 
 class Shaper:
-    def __init__(self,dimen,vdimen):
+    def __init__(self,dimen):
         self.dimen = dimen  #640, 360
-        self.vdimen = vdimen
         self.imgarr = np.zeros((dimen[1],dimen[0]))
         self.a = np.stack([np.arange(dimen[0])]*dimen[1],axis = 0)
         self.b = np.stack([np.arange(dimen[1])-dimen[1]+1]*dimen[0],axis = 1)
@@ -158,7 +157,7 @@ class Shaper:
 
 k = (640,360)
 
-s = Shaper(k,k)
+s = Shaper(k)
 
 #s.drawArcSmooth2(200,150,50,100,0,np.pi/2)
 #s.drawRectSmooth(10,10,[[1,1],[1,8],[4,8],[4,1]])
