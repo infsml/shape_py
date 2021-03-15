@@ -6,7 +6,7 @@ class Shaper:
         self.dimen = dimen  #640, 360
         self.imgarr = np.zeros((dimen[1],dimen[0]))
         self.a = np.stack([np.arange(dimen[0])]*dimen[1],axis = 0)
-        self.b = np.stack([np.arange(dimen[1])-dimen[1]+1]*dimen[0],axis = 1)
+        self.b = np.stack([dimen[1]-np.arange(dimen[1])-1]*dimen[0],axis = 1)
     def drawCircleSmooth2(self,x,y,r):
         a=(self.a-x).astype(np.float)
         b=(self.b-y).astype(np.float)
@@ -154,8 +154,8 @@ class Shaper:
     def getGrad(self):
         dimen = self.dimen
 
-
 k = (640,360)
+k2 = (100,100)
 
 s = Shaper(k)
 
@@ -163,14 +163,17 @@ s = Shaper(k)
 #s.drawRectSmooth(10,10,[[1,1],[1,8],[4,8],[4,1]])
 #s.drawRectSmooth(320,180,[[-100,100],[100,-100],[0,-100],[-100,0]])
 
-s.drawRect(200,200,37,25,25,75)
-s.drawRect(200,200,12,0,75,25)
-s.drawRect(200,200,12,75,75,25)
+"""s.drawRect(37,25,25,75)
+s.drawRect(12,0,75,25)
+s.drawRect(12,75,75,25)"""
 
-s.drawRect(300,200,19,0,31,25)
-s.drawArc(300+50,200-32,7,32,-np.pi/2,np.pi/2)
-s.drawArc(300+50,200-70,6,31,np.pi/2,-np.pi/2)
-s.drawRect(300,200,50,76,32,25)
+s.drawRect(19,0,31,25)
+s.drawArc(50,32,7,32,-np.pi/2,np.pi/2)
+s.drawArc(50,70,6,31,np.pi/2,-np.pi/2)
+s.drawRect(50,76,32,25)
+
+
+
 
 pg.init()
 disp = pg.display.set_mode(k)
